@@ -38,6 +38,7 @@ in FireFox you might have to (re)enable password suggestion in browser settings(
 in Safari works out of the box
 in Chrome it did not work without Google account, might try again later with valid account
 
-Screenshot 2023-04-11 at 09.55.15<img width="291" alt="image" src="https://user-images.githubusercontent.com/70934030/231021495-45bcd34f-5559-47e9-ae58-31f354488ee3.png">
-Screenshot 2023-04-11 at 09.55.10<img width="287" alt="image" src="https://user-images.githubusercontent.com/70934030/231021509-e406b74d-f87f-4619-ad4f-e252ad487faf.png">
+<img width="291" alt="image" src="https://user-images.githubusercontent.com/70934030/231021495-45bcd34f-5559-47e9-ae58-31f354488ee3.png">
+
+<img width="287" alt="image" src="https://user-images.githubusercontent.com/70934030/231021509-e406b74d-f87f-4619-ad4f-e252ad487faf.png">
 

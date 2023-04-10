@@ -5,7 +5,7 @@
 
 
 
-# LINKS
+## LINKS
 
 <https://passkeys.dev/>
 
@@ -25,7 +25,7 @@ Source:
 
 - [Presentation by Phil Nash: The state of passwordless auth on the web](https://www.slideshare.net/PhilNash4/the-state-of-passwordless-auth-on-the-web-256910360)
 
-## Implement password suggestion field via html
+## 1. Implement password suggestion field via html
 
 Worked in firefox and safari only for me, but in theory following browsers are supported(autocomplete is a relatevely new feature):
 
@@ -37,3 +37,7 @@ Worked in firefox and safari only for me, but in theory following browsers are s
 in FireFox you might have to (re)enable password suggestion in browser settings(i probably disabled it by accident)
 in Safari works out of the box
 in Chrome it did not work without Google account, might try again later with valid account
+
+Screenshot 2023-04-11 at 09.55.15<img width="291" alt="image" src="https://user-images.githubusercontent.com/70934030/231021495-45bcd34f-5559-47e9-ae58-31f354488ee3.png">
+Screenshot 2023-04-11 at 09.55.10<img width="287" alt="image" src="https://user-images.githubusercontent.com/70934030/231021509-e406b74d-f87f-4619-ad4f-e252ad487faf.png">
+

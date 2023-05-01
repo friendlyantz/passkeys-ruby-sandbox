@@ -2,8 +2,12 @@
 
 - [x]  WIP(non-passkeys): Implement password suggestion field via html
 - [ ] Rails app with passkeys(ideally with fingerprints via platform auth)
+  - <https://github.com/cedarcode/webauthn-ruby>
+  - <https://github.com/cedarcode/webauthn-rails-demo-app>
 - [ ] Implement passkeys in Rack / Sinatra
 - [ ] add uniq validation on device_id ([refer this](https://stackoverflow.com/a/57239573/1564635)])
+- [ ] OPTIONAL: 2fa using passkeys
+- [ ] OPTIONAL: legacy app
 
 ## LINKS
 

@@ -45,3 +45,53 @@ in Chrome it did not work without Google account, might try again later with val
 <img width="291" alt="image" src="https://user-images.githubusercontent.com/70934030/231021495-45bcd34f-5559-47e9-ae58-31f354488ee3.png">
 
 <img width="287" alt="image" src="https://user-images.githubusercontent.com/70934030/231021509-e406b74d-f87f-4619-ad4f-e252ad487faf.png">
+
+
+----
+
+# Rails
+
+## Rails new; rails scaffold
+
+
+## create concept of a `session` controller
+
+```sh
+rails g controller session new
+# it will have new / create / callback for WebAuthn with it's logig from the docs as well as destroy
+```
+
+## create concept of `current_user`, i.e. in Apps in this case
+
+```ruby
+class ApplicationController < ActionController::Base
+  helper_method :current_user
+
+  private
+
+  def current_user
+    @current_user ||=
+      if session[:user_id]
+        User.find_by(id: session[:user_id])
+      end
+  end
+end
+```
+
+## Home controller, root to it, enforce current user before action check
+
+```sh
+rails g controller home index
+```
+
+```ruby
+class HomeController < ApplicationController
+  before_action :authenticate_user!
+
+  def enforce_current_user
+    return unless current_user.blank?
+
+    redirect_to new_session_path
+  end
+end
+```

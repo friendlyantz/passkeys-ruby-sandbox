@@ -5,6 +5,7 @@ class HomeController < ApplicationController
   def enforce_current_user
     return unless current_user.blank?
 
-    redirect_to new_session_path
+    redirect_to new_registrations_path
+    # redirect_to new_session_path
   end
 end

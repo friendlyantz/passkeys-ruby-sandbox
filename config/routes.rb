@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'registrations/new'
-  get 'session/new'
+  resource :registrations, only: [:new, :create] do
+  #   # post :callback
+  end
+
   # get 'home/index'
   root to: "home#index"
 

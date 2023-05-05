@@ -83,6 +83,45 @@ WebAuthn.configure do |config|
 end
 ```
 
+---
+
+# Models
+
+## Add user model
+
+```sh
+rails g model user username:string
+rails g model credential user:references name:string public_key:string
+rails db:migrate
+```
+
+```ruby
+class User < ApplicationRecord
+  has_many :credentials, dependent: :destroy
+end
+```
+
+---
+
+# User Registrations and Credentials controllers
+
+```sh
+rails g controller credentials 
+rails g controller registrations new # will have a new page with a form
+```
+
+```ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  get 'registrations/new'
+  root 'registrations#new'
+  resources :credentials, only: [:create]
+end
+
+
+
+---
+
 ## Registrations controller
 
 ```sh
@@ -116,47 +155,9 @@ class RegistrationsController < ApplicationController
 end
 ```
 
----
-
-## Add user model
-
-```sh
-rails g model user username:string nickname:string
-rails db:migrate
-```
-
-```ruby
-# app/models/user.rb
-class User < ApplicationRecord
-  # def webauthn_id
-    # blank in example
-  # end
-end
-```
 
 ---
 
-## Add credential model
-
-```sh
-# sign count is optional
-rails g model credential user:references name:string public_key:string
-rails db:migrate
-```
-
-## Add credential controller
-
-```sh
-rails g controller credentials
-```
-
-```ruby
-# config/routes.rb
-Rails.application.routes.draw do
-  get 'registrations/new'
-  root 'registrations#new'
-  resources :credentials, only: [:create]
-end
 ```
 
 ```ruby
@@ -181,28 +182,14 @@ end
 ## Credential concept
 
 <!-- TODO -->
-
-## User concept
-- perhaps should have a `name` / `nickname`
-- must have  a `t.string "webauthn_id"`
-
-webauthn_id is a unique identifier for a user's device. It is used to identify a user's device when they log in. It is not a secret, and it is not used to authenticate a user. It is simply a unique identifier for a device.
-
-generate it via
-```ruby
-  after_initialize do
-    self.webauthn_id ||= WebAuthn.generate_user_id
-  end
-```
-
 ---
 
-
+# LEGACY - TO BE DELETED / REWORKED
 <!-- TODO -->
 
 ---
 
-## create concept of a `session` controller
+## create concept of a `session`(login session) controller
 
 ```sh
 rails g controller session new

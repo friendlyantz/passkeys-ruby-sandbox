@@ -93,7 +93,7 @@ end
 rails g model user username:string webauthn_id:string
 # webauthn_id will be later requirred to be used for WebAuthn::Credential.options_for_create(...), and I think having a dedicated column for it is a good idea, instead of using id
 # if we add wedauth_id, we would need to generate it on the fly after Initialising User object, as per model below
-rails g model credential user:references name:string public_key:string
+rails g model credential users:references name:string public_key:string
 rails db:migrate
 ```
 
@@ -102,7 +102,8 @@ class User < ApplicationRecord
   has_many :credentials, dependent: :destroy
   # has_one :credentials, dependent: :destroy
 
-  after_initialize do
+  after_initialize do 
+  # this will be used later in Registrations controller to generate webauthn Credential 'options_for_create'
     self.webauthn_id ||= WebAuthn.generate_user_id
   end
 end

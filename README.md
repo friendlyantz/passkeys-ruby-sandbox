@@ -60,7 +60,9 @@ optional to consider [@github/webauthn-json](https://github.com/github/webauthn-
 ## Rails new; rails scaffold
 
 ```sh
-rails new app_name
+rails new \
+  --database postgresql \
+  new_app_name \
 ```
 
 ## add webauthn gem

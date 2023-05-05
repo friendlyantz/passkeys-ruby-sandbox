@@ -51,8 +51,33 @@ in Chrome it did not work without Google account, might try again later with val
 
 # Rails
 
+## Gist
 ## Rails new; rails scaffold
 
+
+## Credential concept
+
+<!-- TODO -->
+
+## User concept
+- perhaps should have a `name` / `nickname`
+- must have  a `t.string "webauthn_id"`
+
+webauthn_id is a unique identifier for a user's device. It is used to identify a user's device when they log in. It is not a secret, and it is not used to authenticate a user. It is simply a unique identifier for a device.
+
+generate it via
+```ruby
+  after_initialize do
+    self.webauthn_id ||= WebAuthn.generate_user_id
+  end
+```
+
+---
+
+
+<!-- TODO -->
+
+---
 
 ## create concept of a `session` controller
 

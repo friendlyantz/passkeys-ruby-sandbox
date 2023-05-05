@@ -98,6 +98,7 @@ rails db:migrate
 ```ruby
 class User < ApplicationRecord
   has_many :credentials, dependent: :destroy
+  # has_one :credentials, dependent: :destroy
 end
 ```
 
@@ -113,12 +114,11 @@ rails g controller registrations new # will have a new page with a form
 ```ruby
 # config/routes.rb
 Rails.application.routes.draw do
-  get 'registrations/new'
   root 'registrations#new'
   resources :credentials, only: [:create]
+  resources :registrations, only: [:new, :create]
 end
-
-
+```
 
 ---
 
@@ -129,18 +129,9 @@ rails g controller registrations new
 ```
 
 ```ruby
-# config/routes.rb
-Rails.application.routes.draw do
-  get 'registrations/new'
-  root 'registrations#new'
-end
-```
-
-```ruby
 # View app/views/registrations/new.html.erb
-<%= form_with url: registrations_new_path do |form| %>
+<%= form_with url: registrations_path do |form| %>
   <%= form.text_field :username %>
-  <%= form.text_field :nickname %>
   <%= form.submit 'Sign Up' %>
 <% end %>
 ```
@@ -149,21 +140,10 @@ end
 # app/controllers/registrations_controller.rb
 class RegistrationsController < ApplicationController
   def new
-    # blank in example
-    # @registration = WebAuthn::Credential.options_for_create
   end
-end
-```
 
-
----
-
-```
-
-```ruby
-# app/controllers/credentials_controller.rb
-def create
-  user = User.new(...)
+  def create
+  user = User.new(username: params[:username])
 
   options = WebAuthn::Credential.options_for_create(...)
 

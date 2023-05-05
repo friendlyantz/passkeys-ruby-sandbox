@@ -52,7 +52,128 @@ in Chrome it did not work without Google account, might try again later with val
 # Rails
 
 ## Gist
+Registrations (User Controller) -> Credential Controller -> Credential Model -> User Model -> Session Controller -> Home Controller
+
+JavaScript is a must for WebAuthn
+optional to consider [@github/webauthn-json](https://github.com/github/webauthn-json)
+
 ## Rails new; rails scaffold
+
+```sh
+rails new app_name
+```
+
+## add webauthn gem
+
+```ruby
+# add to gemfile
+gem 'webauthn'
+```
+
+```sh
+touch config/initializers/webauthn.rb
+```
+
+```ruby
+# config/initializers/webauthn.rb
+WebAuthn.configure do |config|
+  config.origin = "https://localhost:3000"
+end
+```
+
+## Registrations controller
+
+```sh
+rails g controller registrations new
+```
+
+```ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  get 'registrations/new'
+  root 'registrations#new'
+end
+```
+
+```ruby
+# View app/views/registrations/new.html.erb
+<%= form_with url: registrations_new_path do |form| %>
+  <%= form.text_field :username %>
+  <%= form.text_field :nickname %>
+  <%= form.submit 'Sign Up' %>
+<% end %>
+```
+
+```ruby
+# app/controllers/registrations_controller.rb
+class RegistrationsController < ApplicationController
+  def new
+    # blank in example
+    # @registration = WebAuthn::Credential.options_for_create
+  end
+end
+```
+
+---
+
+## Add user model
+
+```sh
+rails g model user username:string nickname:string
+rails db:migrate
+```
+
+```ruby
+# app/models/user.rb
+class User < ApplicationRecord
+  # def webauthn_id
+    # blank in example
+  # end
+end
+```
+
+---
+
+## Add credential model
+
+```sh
+# sign count is optional
+rails g model credential user:references name:string public_key:string
+rails db:migrate
+```
+
+## Add credential controller
+
+```sh
+rails g controller credentials
+```
+
+```ruby
+# config/routes.rb
+Rails.application.routes.draw do
+  get 'registrations/new'
+  root 'registrations#new'
+  resources :credentials, only: [:create]
+end
+```
+
+```ruby
+# app/controllers/credentials_controller.rb
+def create
+  user = User.new(...)
+
+  options = WebAuthn::Credential.options_for_create(...)
+
+  if user.valid?
+    session[:current_registration] = { challenge: options.challenge }
+
+    respond_to do |format|
+      format.json { render json: options }
+    end
+  end
+end
+```
+
 
 
 ## Credential concept

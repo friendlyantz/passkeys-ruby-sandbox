@@ -16,10 +16,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_062224) do
 
   create_table "credentials", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "name"
-    t.string "public_key"
+    t.string "nickname", null: false
+    t.string "external_id", null: false
+    t.string "public_key", null: false
+    t.integer "sign_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["external_id"], name: "index_credentials_on_external_id", unique: true
+    t.index ["nickname", "user_id"], name: "index_credentials_on_nickname_and_user_id", unique: true
     t.index ["user_id"], name: "index_credentials_on_user_id"
   end
 

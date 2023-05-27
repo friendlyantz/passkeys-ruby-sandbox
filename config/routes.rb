@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'registrations#new'
-  resources :credentials, only: [:create]
+  root to: "dashboard#index"
+
   resources :registrations, only: [:new, :create]
 end
